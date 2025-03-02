@@ -1,6 +1,20 @@
 const { Router } = require("express");
 const User = require('../models/user');
 const router = Router();
+const multer = require("multer");
+const path = require("path");
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, path.resolve(`./public/images/`));
+  },
+  filename: function (req, file, cb) {
+    const fileName = `${Date.now()}-${file.originalname}`;
+    cb(null, fileName);
+  },
+});
+
+const upload = multer({ storage: storage });
 
 
 router.get("/signup", (req, res) =>{
@@ -8,13 +22,14 @@ router.get("/signup", (req, res) =>{
 });
 
 
-router.post('/signup', async (req, res) => {
+router.post('/signup', upload.single("profileImage"), async (req, res) => {
     const { fullName, email, password} = req.body;
 
     await User.create({
         fullName,
         email,
         password,
+        profileImageURL:`/images/${req.file.filename}`,
     });
 
     return res.redirect("/");
