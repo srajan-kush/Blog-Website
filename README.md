@@ -20,8 +20,8 @@ A simple blog website built using Node.js, Express, and MongoDB, featuring JWT a
 
 1. Clone the repository:
    ```sh
-   git clone https://github.com/srajan-kush/blog-website.git
-   cd blog-website
+   git clone https://github.com/srajan-kush/Blog-Website.git
+   cd Blog-Website
    ```
 
 2. Install dependencies:
